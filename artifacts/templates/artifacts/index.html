@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Artifacts</title>
+  </head>
+  <body>
+    {% if artifacts %}
+        <ul>
+        {% for artifact in artifacts %}
+            <li><a href="/artifacts/{{ artifact.id }}/">{{ artifact.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <form action="/artifacts/" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h1>Search artifacts</h1></legend>
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                <input type="text" name="query" id="query">
+            </fieldset>
+            <input type="submit" value="query">
+        </form>
+    {% endif %}
+  </body>
+</html>
