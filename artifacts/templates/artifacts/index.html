@@ -5,10 +5,10 @@
     <title>My Artifacts</title>
   </head>
   <body>
-    {% if artifacts %}
+    {% if models %}
         <ul>
-        {% for artifact in artifacts %}
-            <li><a href="/artifacts/{{ artifact.id }}/">{{ artifact.title }}</a></li>
+        {% for model in models %}
+            <li><a href="/artifacts/{{ model.id }}/">{{ model.name }}</a></li>
         {% endfor %}
         </ul>
     {% else %}

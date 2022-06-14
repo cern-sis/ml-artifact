@@ -1,13 +1,13 @@
 from django.shortcuts import get_object_or_404, render
 
-from .models import Artifacts
+from .models import *
 from .utils import get_slugs
 
 
 def detail(request, artifact_id):
-    get_artifact = get_object_or_404(Artifacts, pk=artifact_id)
+    get_artifact = get_object_or_404(MLModel, pk=artifact_id)
     context = {
-        'artifact': get_artifact,
+        'model': get_artifact,
     }
     return render(request, 'artifacts/detail.html', context)
 
@@ -19,9 +19,9 @@ def index(request):
         matching_artifacts = []
         for slug in slugs:
             matching_artifacts.append(
-                get_object_or_404(Artifacts, pk=slug[0]))
+                get_object_or_404(MLModel, pk=slug[0]))
         context = {
-            'artifacts': matching_artifacts,
+            'models': matching_artifacts,
         }
         return render(request, 'artifacts/index.html', context)
     return render(request, 'artifacts/index.html')

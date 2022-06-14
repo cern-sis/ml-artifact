@@ -5,13 +5,11 @@
     <title>Artifact Details Page</title>
   </head>
   <body>
-    {% if artifact %}
+    {% if model %}
         <ul>
-            <li>{{ artifact.id }}</a></li>
-            <li>{{ artifact.title }}</a></li>
-            <li>{{ artifact.name }}</a></li>
-            <li>{{ artifact.description }}</a></li>
-            <li>{{ artifact.pub_date }}</a></li>
+            <li>{{ model.name }}</a></li>
+            <li>{{ model.description }}</a></li>
+            <li>{{ model.tags }}</a></li>
         </ul>
     {% endif %}
   </body>
