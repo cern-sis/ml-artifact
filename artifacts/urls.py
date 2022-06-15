@@ -1,8 +1,12 @@
 from django.urls import path
 
-from . import views
+from .views import *
+
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('<int:artifact_id>/', views.detail, name='detail'),
+    path('tags/', TagApiView.as_view()),
+    path('model/', MLModelApiView.as_view()),
+    path('model/versions', MLModelVersionApiView.as_view()),
+    path('dataset/', MLDatasetApiView.as_view()),
+    path('dataset/versions', MLDatasetVersionApiView.as_view()),
 ]
