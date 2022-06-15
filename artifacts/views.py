@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -54,8 +55,8 @@ class MLDatasetApiView(APIView):
 class MLModelApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_object(self, mlmodel_id, user_id):
-        return MLModel.objects.get_object_or_404(id=mlmodel_id, user=user_id)
+    def get_object(self, mlmodel_name, user_id):
+        return MLModel.objects.get(name=mlmodel_name, user=user_id)
 
     def get(self, request, *args, **kwargs):
         ml_model = MLModel.objects.filter(user=request.user.id)
@@ -77,8 +78,8 @@ class MLModelApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, *args, **kwargs):
-        mlmodel_id = request.data.get('mlmodel_id')
-        mlmodel_instance = self.get_object(mlmodel_id, request.user.id)
+        mlmodel_name = request.data.get('name')
+        mlmodel_instance = self.get_object(mlmodel_name, request.user.id)
         if not mlmodel_instance:
             return Response(
                 {"res": "Object does not exists."},
@@ -90,15 +91,15 @@ class MLModelApiView(APIView):
             'tags': request.data.get('tags'),
             'user': request.user.id
         }
-        serializer = MLModelSerializer(instance=mlmodel_instance, data=data, partial=True)
+        serializer = MLModelSerializer(instance=mlmodel_instance, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, *args, **kwargs):
-        mlmodel_id = request.data.get('mlmodel_id')
-        mlmodel_instance = self.get_object(mlmodel_id, request.user.id)
+        mlmodel_name = request.data.get('name')
+        mlmodel_instance = self.get_object(mlmodel_name, request.user.id)
         if not mlmodel_instance:
             return Response(
                 {"res": "Object does not exists."},
@@ -115,7 +116,7 @@ class MLDatasetVersionApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, mldatasetversion_id, user_id):
-        return MLDatasetVersion.objects.get_object_or_404(id=mldatasetversion_id, user=user_id)
+        return MLDatasetVersion.objects.get(id=mldatasetversion_id, user=user_id)
 
     def get(self, request, *args, **kwargs):
         ml_model = MLDatasetVersion.objects.filter(user=request.user.id)
@@ -156,7 +157,7 @@ class MLModelVersionApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, mlmodel_id, user_id):
-        return MLModelVersion.objects.get_object_or_404(id=mlmodel_id, user=user_id)
+        return MLModelVersion.objects.get(id=mlmodel_id, user=user_id)
 
     def get(self, request, *args, **kwargs):
         ml_model = MLModelVersion.objects.filter(user=request.user.id)
