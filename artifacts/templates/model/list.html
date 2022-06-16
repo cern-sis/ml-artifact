@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Models</title>
+  </head>
+  <body>
+    <form action="/artifacts/model/" method="post">
+      {% csrf_token %}
+      <fieldset>
+          <legend><h1>Search models</h1></legend>
+          {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+          <input type="text" name="query" id="query">
+      </fieldset>
+      <input type="submit" value="Search">
+    </form>
+    {% if models %}
+        <ul>
+        {% for model in models %}
+            <li><a href="/artifacts/model/{{ model.id }}/">{{ model.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="/artifacts/dataset/">Check datasets</a>
+  </body>
+</html>

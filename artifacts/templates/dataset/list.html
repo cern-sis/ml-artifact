@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Datasets</title>
+  </head>
+  <body>
+    {% if datasets %}
+        <ul>
+        {% for dataset in datasets %}
+            <li><a href="/artifacts/dataset/{{ dataset.id }}/">{{ dataset.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="/artifacts/model/">Back to home!</a>
+  </body>
+</html>

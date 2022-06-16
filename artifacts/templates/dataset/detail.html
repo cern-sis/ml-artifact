@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dataset Details Page</title>
+  </head>
+  <body>
+    {% if dataset %}
+        <ul>
+            <li>{{ dataset.name }}</a></li>
+            <li>{{ dataset.description }}</a></li>
+        </ul>
+    {% endif %}
+    <a href="/artifacts/model/">Back to home!</a>
+  </body>
+</html>
