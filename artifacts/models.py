@@ -7,14 +7,14 @@ from django.db.utils import OperationalError
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     user = models.ForeignKey(User, on_delete = models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 class MLDataset(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=200)
     user = models.ForeignKey(User, on_delete = models.CASCADE, blank=True, null=True)
 
@@ -32,7 +32,7 @@ class MLDatasetVersion(models.Model):
         return self.version
 
 class MLModel(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=200)
     tags = models.ManyToManyField(Tag)
     user = models.ForeignKey(User, on_delete = models.CASCADE, blank=True, null=True)
