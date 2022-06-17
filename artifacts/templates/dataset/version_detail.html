@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Dataset Version Details Page</title>
-  </head>
-  <body>
+{% extends "dataset/base.html" %}
+
+{% block content %}
+  <h2 class="ui header">Dataset Version metadata</h2>
     {% if dataset_version %}
-        <ul>
-            <li>{{ dataset_version.id }}</a></li>
-            <li>{{ dataset_version.url }}</a></li>
-            <li><a href="/artifacts/dataset/{{ dataset_version.ml_dataset }}/">{{ dataset_version.ml_dataset }}</a></li>
-        </ul>
+      <h4 class="ui header">UUID: {{ dataset_version.id }}</h4>
+
+      <div>Database URL: <a href="{{ dataset_version.url }}">{{ dataset_version.url }}</a></div>
+      <div>Dataset Info: <a href="/artifacts/dataset/{{ dataset_version.ml_dataset }}/">{{ dataset_version.ml_dataset }}</a></div>
+
+      {% if model_version_list %}
+        <h5>List of Model Versions using this dataset version:</h5>
         {% for model_version in model_version_list %}
-          List of ModelVersion using this dataset version:
-          <li><a href="/artifacts/model/versions/{{ model_version.id }}/">{{ model_version.id }}</a></li>
+          <div class="ui list">
+            <a class="item" href="/artifacts/model/versions/{{ model_version.id }}/">{{ model_version.id }}</a>
+          </div>
         {% endfor %}
+      {% endif %}
     {% endif %}
-    <br>
-    <a href="/artifacts/model/">Back to home!</a>
-  </body>
-</html>
+
+{% endblock %}

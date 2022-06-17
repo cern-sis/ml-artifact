@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.views import APIView
 from rest_framework import permissions
 
-from .models import MLModel, MLModelVersion
-from .serializers import MLModelSerializer, MLModelVersionSerializer
+from .models import MLModel, MLModelVersion, Tag
+from .serializers import MLModelSerializer, MLModelVersionSerializer, TagSerializer
 from .utils import get_slugs
 
 class ModelListView(APIView):
@@ -41,14 +41,24 @@ class ModelDetailView(APIView):
             id=model_id,
             user=user_id)
 
+    def get_tags(self, tags_data):
+        tag_list = []
+        for id in tags_data:
+            tag = Tag.objects.get(id=id)
+            tag_serialize = TagSerializer(tag)
+            tag_list.append(tag_serialize.data)
+        return tag_list
+
     def get(self, request, model_id):
         model = self.get_object(model_id, request.user.id)
         serializer = MLModelSerializer(model)
+        tag_list = self.get_tags(serializer.data.get('tags'))
         versions = MLModelVersion.objects.filter(ml_model=model_id)
         versions_serilizer = MLModelVersionSerializer(versions, many=True)
         context = {
             'model': serializer.data,
-            'versions': versions_serilizer.data
+            'versions': versions_serilizer.data,
+            'tags': tag_list
         }
 
         return render(request, 'model/detail.html', context)
