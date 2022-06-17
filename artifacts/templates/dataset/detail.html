@@ -10,7 +10,13 @@
             <li>{{ dataset.name }}</a></li>
             <li>{{ dataset.description }}</a></li>
         </ul>
+
+        {% for version in versions %}
+          List of versions using this dataset:
+          <li><a href="/artifacts/dataset/versions/{{ version.id }}/">{{ version.id }}</a></li>
+        {% endfor %}
     {% endif %}
+    <br>
     <a href="/artifacts/model/">Back to home!</a>
   </body>
 </html>

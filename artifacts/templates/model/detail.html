@@ -11,7 +11,13 @@
             <li>{{ model.description }}</a></li>
             <li>{{ model.tags }}</a></li>
         </ul>
+      {% for version in versions %}
+        List of Versions using this model:
+        <li><a href="/artifacts/model/versions/{{ version.id }}/">{{ version.id }}</a></li>
+      {% endfor %}
     {% endif %}
+
+    <br>
     <a href="/artifacts/model/">Back to home!</a>
   </body>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dataset Version Details Page</title>
+  </head>
+  <body>
+    {% if dataset_version %}
+        <ul>
+            <li>{{ dataset_version.id }}</a></li>
+            <li>{{ dataset_version.url }}</a></li>
+            <li><a href="/artifacts/dataset/{{ dataset_version.ml_dataset }}/">{{ dataset_version.ml_dataset }}</a></li>
+        </ul>
+        {% for model_version in model_version_list %}
+          List of ModelVersion using this dataset version:
+          <li><a href="/artifacts/model/versions/{{ model_version.id }}/">{{ model_version.id }}</a></li>
+        {% endfor %}
+    {% endif %}
+    <br>
+    <a href="/artifacts/model/">Back to home!</a>
+  </body>
+</html>

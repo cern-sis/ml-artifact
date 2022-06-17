@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Model Versions</title>
+  </head>
+  <body>
+    {% if model_versions %}
+        <ul>
+        {% for model_version in model_versions %}
+            <li><a href="/artifacts/model/versions/{{ model_version.id }}/">{{ model_version.id }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="/artifacts/model/">Back to all models!</a>
+  </body>
+</html>
